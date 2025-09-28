@@ -2,3 +2,4 @@ python-dotenv
 djangorestframework 
 drf-yasg
 django-cors-headers
+gunicorn
