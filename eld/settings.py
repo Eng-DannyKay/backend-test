@@ -9,18 +9,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 DEBUG = os.getenv("DEBUG", "False") == "True"
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*","https://eld-digital-logbook-test.onrender.com/","https://eld-digital-logbook.netlify.app/"]
 
 INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",  # still useful for API docs and static handling
+    "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
     "corsheaders",
-    "logbook_api",  # your app
+    "logbook_api",   
 ]
 
 MIDDLEWARE = [
