@@ -12,11 +12,11 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.staticfiles",  # still useful for API docs and static handling
     "rest_framework",
     "drf_yasg",
     "corsheaders",
@@ -34,9 +34,9 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "eld.urls"   # <-- replace `eld` with your actual project folder name
+ROOT_URLCONF = "eld.urls"   # <-- make sure this matches your project folder
 
-# No templates needed unless you want the admin/browsable API
+# Minimal templates (needed by DRF/Swagger but no admin UI)
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -44,10 +44,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
-                "django.template.context_processors.debug",
                 "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -66,7 +63,9 @@ DATABASES = {
 # Use cloud/Postgres if DATABASE_URL is present
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
-    DATABASES["default"] = dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    DATABASES["default"] = dj_database_url.parse(
+        DATABASE_URL, conn_max_age=600, ssl_require=True
+    )
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
